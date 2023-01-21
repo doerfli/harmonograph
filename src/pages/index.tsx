@@ -4,6 +4,8 @@ import { Inter } from '@next/font/google'
 import dynamic from 'next/dynamic'
 import { Grid } from '@mui/material'
 import Config from '@/components/config'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
 
 const Harmonograph = dynamic(() => import('../components/harmonograph').then((mod) => mod.default), {
   ssr: false,
@@ -12,6 +14,7 @@ const Harmonograph = dynamic(() => import('../components/harmonograph').then((mo
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
   return (
     <>
       <Grid container spacing={2}>

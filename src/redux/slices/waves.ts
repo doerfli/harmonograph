@@ -21,7 +21,7 @@ const initialState: WaveState = {
     y: {
         frequency: 1,
         amplitude: 70,
-        phase: 0,
+        phase: 0.5,
     }
 }
 
