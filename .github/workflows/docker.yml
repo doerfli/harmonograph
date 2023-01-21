@@ -1,0 +1,22 @@
+name: Docker
+
+# currently disabled 
+# on:
+#   push:
+#     branches: [ main ]
+#     tags:
+#     - '*'
+#   pull_request:
+#     branches:
+#     - main
+
+jobs:
+  docker:
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u doerfli --password-stdin
+      - uses: rlespinasse/github-slug-action@v2.x
+      - run: docker build -f Dockerfile -t docker.pkg.github.com/doerfli/harmonograph/harmonograph:${{ env.GITHUB_REF_SLUG }} .
+      - run: docker push docker.pkg.github.com/doerfli/harmonograph/harmonograph:${{ env.GITHUB_REF_SLUG }}
