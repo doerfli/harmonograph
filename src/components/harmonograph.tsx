@@ -19,9 +19,9 @@ export default function Harmonograph() {
         lastPt = { x: 0, y: 0 } as Point;
 	};
 
-    function f1(t: number, f1: number, f2: number, a: number, p1: number, p2: number): Point {
-        const x = a * Math.sin(f1 * t + p1) * Math.exp(-d * t);
-        const y = a * Math.sin(f2 * t + p2) * Math.exp(-d * t);
+    function f1(t: number, f1: number, f2: number, a1: number, a2: number, p1: number, p2: number): Point {
+        const x = a1 * Math.sin(f1 * t + p1) * Math.exp(-d * t);
+        const y = a2 * Math.sin(f2 * t + p2) * Math.exp(-d * t);
         return {x, y} as Point;
     }
 
@@ -50,11 +50,11 @@ export default function Harmonograph() {
         }
 
         const warpedTime = timestamp / rotationInterval * p5.TWO_PI;
-        let pt = f1(warpedTime, 1, 1, a, 0, p5.PI /2);
-        const p2 = f1(warpedTime, 3, 4, a / 2, p5.PI / 4, p5.PI);
-        const p3 = f1(warpedTime, 5, 2, a, 2 * p5.PI, p5.PI / 4);
+        let pt = f1(warpedTime, 1, 1, a, a/2, 0, p5.PI /2);
+        const p2 = f1(warpedTime, 1, 4, 1.7 * a, a, 0, p5.PI);
+        
 
-        pt = add(add(pt, p2), p3);
+        pt = add(pt, p2);
 
         if (lastPt.x == 0 && lastPt.y == 0) {
             lastPt.x = pt.x;
@@ -64,7 +64,6 @@ export default function Harmonograph() {
 
         pt = dampen(pt, timestamp);
 
-        // drawLine(lastPt, pt, warpedTime);
         p5.line(lastPt.x + p5.width / 2, lastPt.y + p5.height / 2, pt.x + p5.width / 2, pt.y + p5.height / 2);
 
         lastPt = pt;
