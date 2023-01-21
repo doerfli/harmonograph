@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
-import wavesReducer from './slices/waves'
+import { configureStore } from '@reduxjs/toolkit';
+import pendulumsReducer from './slices/pendulums';
 
 export const store = configureStore({
     reducer: {
-        waves: wavesReducer,
+        pendulums: pendulumsReducer
     },
 })
 

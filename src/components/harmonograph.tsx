@@ -5,20 +5,20 @@ import { f1 } from "@/util/harmonograph";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
+import { add } from "@/util/vector";
 
 interface HarmonographProps {
-    // config: WaveConfig;
 }
 
 export default function Harmonograph(props: HarmonographProps) {
-    const wavesConfig = useSelector((state: RootState) => state.waves);
+    const pendulums = useSelector((state: RootState) => state.pendulums.pendulums);
     
     const [ configChanged, setConfigChanged ] = useState(false);
     const [ timeStarted, setTimeStarted ] = useState(0);
 
     useEffect(() => {
         setConfigChanged(true);
-    }, [wavesConfig]);
+    }, [pendulums]);
 
     let lastPt = { x: 0, y: 0 } as Point;
 
@@ -37,7 +37,7 @@ export default function Harmonograph(props: HarmonographProps) {
 
 	const draw = (p5: p5Types) => {
         let timestamp = p5.millis() - timeStarted;
-        console.log(timestamp);
+        // console.log(timestamp);
 
         if (configChanged) {
             // when config changed, restart drawing
@@ -51,19 +51,22 @@ export default function Harmonograph(props: HarmonographProps) {
         }
 
         const warpedTime = timestamp / rotationInterval * p5.TWO_PI;
-        let pt = f1(
-            warpedTime, 
-            wavesConfig.x.frequency, 
-            wavesConfig.y.frequency, 
-            wavesConfig.x.amplitude * amplitudeScalar, 
-            wavesConfig.y.amplitude * amplitudeScalar,
-            wavesConfig.x.phase * p5.PI,
-            wavesConfig.y.phase * p5.PI, 
-            d);
-        // const p2 = f1(warpedTime, 1, 4, 1.7 * a, a, 0, p5.PI, d);
-        
 
-        // pt = add(pt, p2);
+        let pt = { x: 0, y: 0 } as Point;
+
+        pendulums.forEach((pendulum) => {
+            const p = f1(
+                warpedTime,
+                pendulum.x.frequency,
+                pendulum.y.frequency,
+                pendulum.x.amplitude * amplitudeScalar,
+                pendulum.y.amplitude * amplitudeScalar,
+                pendulum.x.phase * p5.PI,
+                pendulum.y.phase * p5.PI,
+                d
+            );
+            pt = add(pt, p);
+        });
 
         if (lastPt.x == 0 && lastPt.y == 0) {
             lastPt.x = pt.x;

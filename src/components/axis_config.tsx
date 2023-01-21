@@ -1,9 +1,10 @@
-import { setAmplitude, setFrequency, setPhase, WaveConfig } from "@/redux/slices/waves";
+import { MovementParameters, setAmplitude, setFrequency, setPhase } from "@/redux/slices/pendulums";
 import { Slider, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 interface AxisConfigProps {
-    config: WaveConfig;
+    id: number;
+    config: MovementParameters;
     axis: 'x' | 'y';
 }
 
@@ -11,7 +12,7 @@ export default function AxisConfig(props: AxisConfigProps) {
     const dispatch = useDispatch();
     
     return (<>
-        <Typography variant="subtitle1">Frequency</Typography>
+        <Typography variant="subtitle2">Frequency</Typography>
         <Slider
             aria-label="Frequency"
             defaultValue={props.config.frequency}
@@ -21,10 +22,10 @@ export default function AxisConfig(props: AxisConfigProps) {
             marks
             min={1}
             max={8}
-            onChange={(event, value) => dispatch(setFrequency({ value: value as number, axis: props.axis }))}
+            onChange={(event, value) => dispatch(setFrequency({ id: props.id, value: value as number, axis: props.axis }))}
             />
 
-        <Typography variant="subtitle1">Amplitude</Typography>
+        <Typography variant="subtitle2">Amplitude</Typography>
         <Slider
             aria-label="Amplitude"
             defaultValue={props.config.amplitude}
@@ -34,10 +35,10 @@ export default function AxisConfig(props: AxisConfigProps) {
             marks
             min={0}
             max={100}
-            onChange={(event, value) => dispatch(setAmplitude({ value: value as number, axis: props.axis }))}
+            onChange={(event, value) => dispatch(setAmplitude({ id: props.id, value: value as number, axis: props.axis }))}
             />
         
-        <Typography variant="subtitle1">Phase (&pi;)</Typography>
+        <Typography variant="subtitle2">Phase (&pi;)</Typography>
         <Slider
             aria-label="Phase"
             defaultValue={props.config.phase}
@@ -47,7 +48,7 @@ export default function AxisConfig(props: AxisConfigProps) {
             marks
             min={0}
             max={2}
-            onChange={(event, value) => dispatch(setPhase({ value: value as number, axis: props.axis }))}
+            onChange={(event, value) => dispatch(setPhase({ id: props.id, value: value as number, axis: props.axis }))}
             />
     </>);
 }
