@@ -1,11 +1,10 @@
 import Sketch from "react-p5";
 import p5Types from "p5"; //Import this for typechecking and intellisense
+import { Point } from "@/types/point";
+import { f1 } from "@/util/harmonograph";
+import { add } from "@/util/vector";
 
-interface Point {
-    x: number;
-    y: number;
-    
-}
+
 
 export default function Harmonograph() {
 
@@ -18,25 +17,7 @@ export default function Harmonograph() {
 
         lastPt = { x: 0, y: 0 } as Point;
 	};
-
-    function f1(t: number, f1: number, f2: number, a1: number, a2: number, p1: number, p2: number): Point {
-        const x = a1 * Math.sin(f1 * t + p1) * Math.exp(-d * t);
-        const y = a2 * Math.sin(f2 * t + p2) * Math.exp(-d * t);
-        return {x, y} as Point;
-    }
-
-    function dampen(v: Point, timeMillis: number): Point {
-        const d = (maxTime - timeMillis) / maxTime;
-        if (d <= 0) { 
-            return { x: 0, y: 0};
-        }
-        return { x: v.x * d, y: v.y * d };
-    }
-
-    function add(a: Point, b: Point): Point {
-        return { x: a.x + b.x, y: a.y + b.y };
-    }
-
+    
     const rotationInterval = 3000; // millis
     const a = 200;
     const d = 0.01;
@@ -50,8 +31,8 @@ export default function Harmonograph() {
         }
 
         const warpedTime = timestamp / rotationInterval * p5.TWO_PI;
-        let pt = f1(warpedTime, 1, 1, a, a/2, 0, p5.PI /2);
-        const p2 = f1(warpedTime, 1, 4, 1.7 * a, a, 0, p5.PI);
+        let pt = f1(warpedTime, 1, 1, a, a/2, 0, p5.PI /2, d);
+        const p2 = f1(warpedTime, 1, 4, 1.7 * a, a, 0, p5.PI, d);
         
 
         pt = add(pt, p2);
@@ -61,8 +42,6 @@ export default function Harmonograph() {
             lastPt.y = pt.y;
             return;
         }
-
-        pt = dampen(pt, timestamp);
 
         p5.line(lastPt.x + p5.width / 2, lastPt.y + p5.height / 2, pt.x + p5.width / 2, pt.y + p5.height / 2);
 
