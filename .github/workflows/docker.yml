@@ -2,10 +2,10 @@ name: Docker
 
 # currently disabled 
 on:
-#   push:
+  push:
 #     branches: [ main ]
-#     tags:
-#     - '*'
+    tags:
+    - '*'
 #   pull_request:
 #     branches:
 #     - main
