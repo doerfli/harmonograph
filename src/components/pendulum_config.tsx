@@ -22,10 +22,5 @@ export default function PendulumConfig(props: WaveConfigProps) {
         <AxisConfig config={yAxisConfig} axis='y' id={props.id} />
 
         <Divider variant="middle" />
-        
-        {/* TODO: dampening factor */}
-        {/* TODO: rotation interval */}
-        {/* TODO: maxTime */}
-        {/* TODO: color */}
     </>);
 }
