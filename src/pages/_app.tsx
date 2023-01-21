@@ -1,3 +1,4 @@
+import { store } from '@/redux/store';
 import '@/styles/globals.css'
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -7,6 +8,7 @@ import { Container, CssBaseline } from '@mui/material';
 import type { AppProps } from 'next/app'
 import Head from 'next/head';
 import React from 'react';
+import { Provider } from 'react-redux';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -18,7 +20,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <CssBaseline enableColorScheme />
       <Container maxWidth="xl" sx={{ p: 1 }}>
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
       </Container>
     </React.Fragment>
   );
