@@ -8,5 +8,10 @@ export default function WaveConfig() {
 
         <Typography variant="h6">Y-Axis</Typography>
         <AxisConfig />
+
+        {/* TODO: dampening factor */}
+        {/* TODO: rotation interval */}
+        {/* TODO: maxTime */}
+        {/* TODO: color */}
     </>);
 }
