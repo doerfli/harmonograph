@@ -15,14 +15,22 @@ export default function Harmonograph(props: HarmonographProps) {
     
     const [ configChanged, setConfigChanged ] = useState(false);
     const [ timeStarted, setTimeStarted ] = useState(0);
+    const [ p5js, setP5js ] = useState<p5Types | null>(null);
 
     useEffect(() => {
         setConfigChanged(true);
+        if (p5js !== null) {
+            // delay looping to allow for status change to propagate (Sketch component cannot use callbacked draw method)
+            setTimeout(() => {
+                p5js.loop();
+            }, 500);
+        }
     }, [pendulums]);
 
     let lastPt = { x: 0, y: 0 } as Point;
 
     const setup = (p5: p5Types, canvasParentRef: Element) => {
+        setP5js(p5);
 		p5.createCanvas(600, 600)
             .parent(canvasParentRef);
         p5.background(255);
@@ -46,7 +54,7 @@ export default function Harmonograph(props: HarmonographProps) {
             setConfigChanged(false);
         }
 
-        if (timestamp > maxTime) {
+        if (timestamp > maxTime && ! configChanged ) {
             p5.noLoop();
         }
 
