@@ -2,10 +2,9 @@ import Sketch from "react-p5";
 import p5Types from "p5"; //Import this for typechecking and intellisense
 import { Point } from "@/types/point";
 import { f1 } from "@/util/harmonograph";
-import { add } from "@/util/vector";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { WaveConfig } from "@/redux/slices/waves";
+import { useEffect, useState } from "react";
 
 interface HarmonographProps {
     // config: WaveConfig;
@@ -14,6 +13,13 @@ interface HarmonographProps {
 export default function Harmonograph(props: HarmonographProps) {
     const wavesConfig = useSelector((state: RootState) => state.waves);
     
+    const [ configChanged, setConfigChanged ] = useState(false);
+    const [ timeStarted, setTimeStarted ] = useState(0);
+
+    useEffect(() => {
+        setConfigChanged(true);
+    }, [wavesConfig]);
+
     let lastPt = { x: 0, y: 0 } as Point;
 
     const setup = (p5: p5Types, canvasParentRef: Element) => {
@@ -30,7 +36,15 @@ export default function Harmonograph(props: HarmonographProps) {
     const maxTime = 60 * 1000; // millis
 
 	const draw = (p5: p5Types) => {
-        const timestamp = p5.millis();
+        let timestamp = p5.millis() - timeStarted;
+        console.log(timestamp);
+
+        if (configChanged) {
+            // when config changed, restart drawing
+            setTimeStarted(p5.millis());
+            p5.clear();
+            setConfigChanged(false);
+        }
 
         if (timestamp > maxTime) {
             p5.noLoop();
@@ -63,5 +77,4 @@ export default function Harmonograph(props: HarmonographProps) {
 	};
 
 	return <Sketch setup={setup} draw={draw} />;
-
 }
