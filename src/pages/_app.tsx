@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CssBaseline enableColorScheme />
-      <Container maxWidth="lg" sx={{ p: 1 }}>
+      <Container maxWidth="xl" sx={{ p: 1 }}>
         <Component {...pageProps} />
       </Container>
     </React.Fragment>
