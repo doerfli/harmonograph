@@ -19,12 +19,12 @@ export interface MovementParameters {
 const circlePendulum = { 
     x: {
         frequency: 1,
-        amplitude: 70,
+        amplitude: 50,
         phase: 0,
     },
     y: {
         frequency: 1,
-        amplitude: 70,
+        amplitude: 50,
         phase: 0.5,
     }
 };

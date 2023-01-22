@@ -13,7 +13,7 @@ export default function Config() {
     const numPendulums = pendulums.length;
 
     const addAction = (<Button variant="text" onClick={() => dispatch(addPendulum())} disabled={numPendulums >= MAX_PENDULUMS} >Add Pendulum</Button>);
-    const removeAction = (<Button variant="text" onClick={() => dispatch(removePendulum())} disabled={numPendulums > 1} >Remove Pendulum</Button>);
+    const removeAction = (<Button variant="text" onClick={() => dispatch(removePendulum())} disabled={numPendulums <= 1} >Remove Pendulum</Button>);
     
     return (
     <Box style={{maxHeight: '100vh', overflow: 'auto' }} sx={{ p: 1 }}>
