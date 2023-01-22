@@ -6,6 +6,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { add } from "@/util/vector";
+import { Box } from "@mui/material";
+
+const ROTATION_INTERVAL = 3000; // millis
+const AMPLITUDE_SCALAR = 2;
+const D = 0.01;
+const MAX_TIME = 60 * 1000; // millis
 
 interface HarmonographProps {
 }
@@ -31,18 +37,13 @@ export default function Harmonograph(props: HarmonographProps) {
 
     const setup = (p5: p5Types, canvasParentRef: Element) => {
         setP5js(p5);
-		p5.createCanvas(600, 600)
+		p5.createCanvas(900, 700)
             .parent(canvasParentRef);
         p5.background(255);
 
         lastPt = { x: 0, y: 0 } as Point;
 	};
     
-    const rotationInterval = 3000; // millis
-    const amplitudeScalar = 2;
-    const d = 0.01;
-    const maxTime = 60 * 1000; // millis
-
 	const draw = (p5: p5Types) => {
         let timestamp = p5.millis() - timeStarted;
         // console.log(timestamp);
@@ -54,11 +55,11 @@ export default function Harmonograph(props: HarmonographProps) {
             setConfigChanged(false);
         }
 
-        if (timestamp > maxTime && ! configChanged ) {
+        if (timestamp > MAX_TIME && ! configChanged ) {
             p5.noLoop();
         }
 
-        const warpedTime = timestamp / rotationInterval * p5.TWO_PI;
+        const warpedTime = timestamp / ROTATION_INTERVAL * p5.TWO_PI;
 
         let pt = { x: 0, y: 0 } as Point;
 
@@ -67,11 +68,11 @@ export default function Harmonograph(props: HarmonographProps) {
                 warpedTime,
                 pendulum.x.frequency,
                 pendulum.y.frequency,
-                pendulum.x.amplitude * amplitudeScalar,
-                pendulum.y.amplitude * amplitudeScalar,
+                pendulum.x.amplitude * AMPLITUDE_SCALAR,
+                pendulum.y.amplitude * AMPLITUDE_SCALAR,
                 pendulum.x.phase * p5.PI,
                 pendulum.y.phase * p5.PI,
-                d
+                D
             );
             pt = add(pt, p);
         });
@@ -87,5 +88,9 @@ export default function Harmonograph(props: HarmonographProps) {
         lastPt = pt;
 	};
 
-	return <Sketch setup={setup} draw={draw} />;
+	return (<>
+        <Box sx={{ border: 1, display: 'flex', justifyContent: 'center' }}> 
+            <Sketch setup={setup} draw={draw} />
+        </Box>
+    </>);
 }
