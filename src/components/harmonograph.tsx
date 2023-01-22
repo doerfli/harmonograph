@@ -89,7 +89,7 @@ export default function Harmonograph(props: HarmonographProps) {
 	};
 
 	return (<>
-        <Box sx={{ border: 1, display: 'flex', justifyContent: 'center' }}> 
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}> 
             <Sketch setup={setup} draw={draw} />
         </Box>
     </>);
