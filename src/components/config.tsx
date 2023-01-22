@@ -1,6 +1,6 @@
 import { addPendulum, removePendulum } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import PendulumConfig from "./pendulum_config";
 
@@ -16,13 +16,12 @@ export default function Config() {
     
     return (<>
         <Typography variant="h5">Configuration</Typography>
-
+        <Box>
         {addAction}
         {removeAction}
-
+        </Box>
         {[...Array(numPendulums)].map((e, i) => 
-            <PendulumConfig id={i} key={i} />
+            <PendulumConfig id={i} key={i} defaultExpanded={i == 0}/>
         )}
-        
     </>);
 }
