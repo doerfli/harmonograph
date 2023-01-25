@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { add } from "@/util/vector";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const AMPLITUDE_SCALAR = 2;
 
@@ -22,6 +22,7 @@ export default function Harmonograph(props: HarmonographProps) {
     const [ configChanged, setConfigChanged ] = useState(false);
     const [ timeStarted, setTimeStarted ] = useState(0);
     const [ p5js, setP5js ] = useState<p5Types | null>(null);
+    const [ active, setActive ] = useState(true);
 
     useEffect(() => {
         setConfigChanged(true);
@@ -29,6 +30,7 @@ export default function Harmonograph(props: HarmonographProps) {
             // delay looping to allow for status change to propagate (Sketch component cannot use callbacked draw method)
             setTimeout(() => {
                 p5js.loop();
+                setActive(true);
             }, 500);
         }
     }, [pendulums, dampening, rotationInterval, maxTime]);
@@ -57,6 +59,7 @@ export default function Harmonograph(props: HarmonographProps) {
 
         if (timestamp > (maxTime * 1000) && ! configChanged ) {
             p5.noLoop();
+            setActive(false);
         }
 
         const warpedTime = timestamp / (rotationInterval * 1000) * p5.TWO_PI;
@@ -88,8 +91,28 @@ export default function Harmonograph(props: HarmonographProps) {
         lastPt = pt;
 	};
 
+    function stop() {
+        p5js?.noLoop();
+        setActive(false);
+    }
+
+    function restart() {
+        setConfigChanged(true);
+        if (! active ) {
+            // delay looping to allow for status change to propagate (Sketch component cannot use callbacked draw method)
+            setTimeout(() => {
+                p5js?.loop();
+                setActive(true);
+            }, 500);
+        }
+    }
+
 	return (<>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}> 
+        <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}> 
+            <Box sx={{ mt: 1 }}>
+                <Button onClick={stop} disabled={! active}>Stop</Button>
+                <Button onClick={restart}>Restart</Button>
+            </Box>
             <Sketch setup={setup} draw={draw} />
         </Box>
     </>);
