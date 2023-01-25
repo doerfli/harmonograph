@@ -16,8 +16,7 @@ export default function Config() {
     const dampening = useSelector((state: RootState) => state.pendulums.dampening);
     const rotationInterval = useSelector((state: RootState) => state.pendulums.rotationInterval);
     const maxTime = useSelector((state: RootState) => state.pendulums.maxTime);
-    const numPendulums = pendulums.length;
-    const config = useSelector((state: RootState) => state.pendulums);
+    const numPendulums = pendulums.length ?? 1;
     const permalinkId = useSelector((state: RootState) => state.pendulums.encodedConfig);
 
     const addAction = (<Button variant="text" onClick={() => dispatch(addPendulum())} disabled={numPendulums >= MAX_PENDULUMS} >Add</Button>);
@@ -88,7 +87,6 @@ export default function Config() {
                     type='text'
                     fullWidth
                     inputProps={{readOnly: true}}
-                    defaultValue={genPermalink()}
                     value={genPermalink()}
                     endAdornment={
                     <InputAdornment position="end">

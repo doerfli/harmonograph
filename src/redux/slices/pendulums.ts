@@ -102,6 +102,14 @@ export const pendulumsSlice = createSlice({
             state.maxTime = action.payload;
             state.encodedConfig = encodeConfig(state.pendulums, state.dampening, state.rotationInterval, state.maxTime);
         },
+        loadConfig: (state, action: PayloadAction<{ pendulums: Array<Pendulum>, dampening: number, rotationInterval: number, maxTime: number }>) => {
+            const { pendulums, dampening, rotationInterval, maxTime } = action.payload;
+            state.pendulums = pendulums;
+            state.dampening = dampening;
+            state.rotationInterval = rotationInterval;
+            state.maxTime = maxTime;
+            state.encodedConfig = encodeConfig(state.pendulums, state.dampening, state.rotationInterval, state.maxTime);
+        }
     },
 });
 
@@ -116,6 +124,7 @@ export const {
     setDampening,
     setRotationInterval,
     setMaxTime,
+    loadConfig,
 } = pendulumsSlice.actions
 
 export default pendulumsSlice.reducer
