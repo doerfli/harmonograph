@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface PendulumState {
     pendulums: Pendulum[],
+    dampening: number,
 }
 
 export interface Pendulum {
@@ -33,7 +34,8 @@ const circlePendulum = {
 const initialState: PendulumState = {
     pendulums: [
         circlePendulum
-    ]
+    ],
+    dampening: 0.01,
 }
 
 export const pendulumsSlice = createSlice({
@@ -75,7 +77,10 @@ export const pendulumsSlice = createSlice({
         },
         removePendulum: (state) => {
             state.pendulums.pop();
-        }
+        },
+        setDampening: (state, action: PayloadAction<number>) => {
+            state.dampening = action.payload;
+        },
     },
 });
 
@@ -87,6 +92,7 @@ export const {
     setPhase ,
     addPendulum,
     removePendulum,
+    setDampening,
 } = pendulumsSlice.actions
 
 export default pendulumsSlice.reducer

@@ -10,7 +10,6 @@ import { Box } from "@mui/material";
 
 const ROTATION_INTERVAL = 3000; // millis
 const AMPLITUDE_SCALAR = 2;
-const D = 0.01;
 const MAX_TIME = 60 * 1000; // millis
 
 interface HarmonographProps {
@@ -18,6 +17,7 @@ interface HarmonographProps {
 
 export default function Harmonograph(props: HarmonographProps) {
     const pendulums = useSelector((state: RootState) => state.pendulums.pendulums);
+    const dampening = useSelector((state: RootState) => state.pendulums.dampening);
     
     const [ configChanged, setConfigChanged ] = useState(false);
     const [ timeStarted, setTimeStarted ] = useState(0);
@@ -72,7 +72,7 @@ export default function Harmonograph(props: HarmonographProps) {
                 pendulum.y.amplitude * AMPLITUDE_SCALAR,
                 pendulum.x.phase * p5.PI,
                 pendulum.y.phase * p5.PI,
-                D
+                dampening,
             );
             pt = add(pt, p);
         });
