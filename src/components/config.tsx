@@ -1,5 +1,6 @@
 import { addPendulum, removePendulum, reset, setDampening, setMaxTime, setRotationInterval } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
+import { encodeB64 } from "@/util/base64";
 import { Box, Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ConfigSlider from "./config_slider";
@@ -15,6 +16,7 @@ export default function Config() {
     const rotationInterval = useSelector((state: RootState) => state.pendulums.rotationInterval);
     const maxTime = useSelector((state: RootState) => state.pendulums.maxTime);
     const numPendulums = pendulums.length;
+    const config = useSelector((state: RootState) => state.pendulums);
 
     const addAction = (<Button variant="text" onClick={() => dispatch(addPendulum())} disabled={numPendulums >= MAX_PENDULUMS} >Add</Button>);
     const removeAction = (<Button variant="text" onClick={() => dispatch(removePendulum())} disabled={numPendulums <= 1} >Remove</Button>);
@@ -58,5 +60,12 @@ export default function Config() {
                 onChange={(event, value) => dispatch(setMaxTime(value as number))}
                 />
         </Box>
+        {/** FIXME: remove this and make real export */}
+        <Button onClick={() => {
+            console.log(config);
+            console.log(JSON.stringify(config));
+            console.log(encodeB64(JSON.stringify(config)));
+            console.log(encodeB64('|1,50,0,15,0,0.5||1,50,0,15,0,0.5||1,50,0,15,0,0.5||1,50,0,15,0,0.5|0.01,2.5,60'));
+        }}>Export configuration</Button>
     </Box>);
 }
