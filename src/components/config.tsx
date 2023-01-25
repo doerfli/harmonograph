@@ -1,7 +1,8 @@
 import { addPendulum, removePendulum, reset, setDampening, setMaxTime, setRotationInterval } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
-import { encodeB64 } from "@/util/base64";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ConfigSlider from "./config_slider";
 import PendulumConfig from "./pendulum_config";
@@ -32,6 +33,11 @@ export default function Config() {
             baseUrl = origin;
         }
         return baseUrl + "/c/" + permalinkId;
+    }
+
+    function copyPermalinkToClipboard() {
+        const permalink = genPermalink();
+        navigator.clipboard.writeText(permalink);
     }
 
     return (
@@ -73,19 +79,32 @@ export default function Config() {
                 />
         </Box>
         <Box sx={{ mt: 4 }}>
-            <TextField
-                id="permalink"
-                label="Permalink"
+            <FormControl 
                 fullWidth
-                type="text"
-                variant="outlined"
-                inputProps={{
-                    readOnly: true,
-                }}
-                defaultValue={genPermalink()}
-                value={genPermalink()}
-                placeholder="Permalink"
+                variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Permalink</InputLabel>
+                <OutlinedInput
+                    id="outlined-adornment-password"
+                    type='text'
+                    fullWidth
+                    inputProps={{readOnly: true}}
+                    defaultValue={genPermalink()}
+                    value={genPermalink()}
+                    endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                            color="info"
+                            aria-label="toggle password visibility"
+                            onClick={copyPermalinkToClipboard}
+                            edge="end"
+                            >
+                            <FontAwesomeIcon icon={faCopy} className="fa cursor-pointer" />
+                        </IconButton>
+                    </InputAdornment>
+                    }
+                    label="Permalink"
                 />
+            </FormControl>
         </Box>
     </Box>);
 }
