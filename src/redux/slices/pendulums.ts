@@ -5,6 +5,7 @@ export interface PendulumState {
     pendulums: Pendulum[],
     dampening: number,
     rotationInterval: number,
+    maxTime: number,
 }
 
 export interface Pendulum {
@@ -38,6 +39,7 @@ const initialState: PendulumState = {
     ],
     dampening: 0.01,
     rotationInterval: 3,
+    maxTime: 60,
 }
 
 export const pendulumsSlice = createSlice({
@@ -86,6 +88,9 @@ export const pendulumsSlice = createSlice({
         setRotationInterval: (state, action: PayloadAction<number>) => {
             state.rotationInterval = action.payload;
         },
+        setMaxTime: (state, action: PayloadAction<number>) => {
+            state.maxTime = action.payload;
+        },
     },
 });
 
@@ -99,6 +104,7 @@ export const {
     removePendulum,
     setDampening,
     setRotationInterval,
+    setMaxTime,
 } = pendulumsSlice.actions
 
 export default pendulumsSlice.reducer

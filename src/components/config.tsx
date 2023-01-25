@@ -1,4 +1,4 @@
-import { addPendulum, removePendulum, setDampening, setRotationInterval } from "@/redux/slices/pendulums";
+import { addPendulum, removePendulum, setDampening, setMaxTime, setRotationInterval } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
 import { Box, Button, Slider, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -13,6 +13,7 @@ export default function Config() {
     const pendulums = useSelector((state: RootState) => state.pendulums.pendulums);
     const dampening = useSelector((state: RootState) => state.pendulums.dampening);
     const rotationInterval = useSelector((state: RootState) => state.pendulums.rotationInterval);
+    const maxTime = useSelector((state: RootState) => state.pendulums.maxTime);
     const numPendulums = pendulums.length;
 
     const addAction = (<Button variant="text" onClick={() => dispatch(addPendulum())} disabled={numPendulums >= MAX_PENDULUMS} >Add Pendulum</Button>);
@@ -54,6 +55,18 @@ export default function Config() {
                 onChange={(event, value) => dispatch(setRotationInterval(value as number))}
                 />
             <Typography variant="body2" fontSize={12} color={grey[700]}>Note: Shorter intervals will create less precise paintings</Typography>
+            <Typography variant="subtitle2">Painting duration</Typography>
+            <Slider
+                aria-label="Painting duration"
+                defaultValue={maxTime}
+                value={maxTime}
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={10}
+                max={300}
+                onChange={(event, value) => dispatch(setMaxTime(value as number))}
+                />
         </Box>
     </Box>);
 }

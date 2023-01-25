@@ -9,7 +9,6 @@ import { add } from "@/util/vector";
 import { Box } from "@mui/material";
 
 const AMPLITUDE_SCALAR = 2;
-const MAX_TIME = 60 * 1000; // millis
 
 interface HarmonographProps {
 }
@@ -18,6 +17,7 @@ export default function Harmonograph(props: HarmonographProps) {
     const pendulums = useSelector((state: RootState) => state.pendulums.pendulums);
     const dampening = useSelector((state: RootState) => state.pendulums.dampening);
     const rotationInterval = useSelector((state: RootState) => state.pendulums.rotationInterval);
+    const maxTime = useSelector((state: RootState) => state.pendulums.maxTime);
     
     const [ configChanged, setConfigChanged ] = useState(false);
     const [ timeStarted, setTimeStarted ] = useState(0);
@@ -31,7 +31,7 @@ export default function Harmonograph(props: HarmonographProps) {
                 p5js.loop();
             }, 500);
         }
-    }, [pendulums, dampening, rotationInterval]);
+    }, [pendulums, dampening, rotationInterval, maxTime]);
 
     let lastPt = { x: 0, y: 0 } as Point;
 
@@ -55,7 +55,7 @@ export default function Harmonograph(props: HarmonographProps) {
             setConfigChanged(false);
         }
 
-        if (timestamp > MAX_TIME && ! configChanged ) {
+        if (timestamp > (maxTime * 1000) && ! configChanged ) {
             p5.noLoop();
         }
 
