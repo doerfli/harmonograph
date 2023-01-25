@@ -1,8 +1,10 @@
 import { MovementParameters, Pendulum } from "@/redux/slices/pendulums";
 import { decodeB64, encodeB64 } from "./base64";
 
+const V1 = "v1";
+
 export function encodeConfig(pendulums: Array<Pendulum>, dampening: number, rotationInterval: number, maxTime: number): string {
-    let content = "";
+    let content = V1 + "$";
     content += pendulums.map((pendulum) => encodePendulum(pendulum)).join("");
     content += dampening + ",";
     content += rotationInterval + ",";
@@ -26,7 +28,12 @@ function encodeAxis(axis: MovementParameters) {
 }
 
 export function decodeConfig(encodedConfig: string): { pendulums: Array<Pendulum>, dampening: number, rotationInterval: number, maxTime: number } {
-    const decoded = decodeB64(encodedConfig);
+    let decoded = decodeB64(encodedConfig);
+    if (! decoded.startsWith('v1$')) {
+        throw new Error("invalid config version");
+    }
+    // now skip version
+    decoded = decoded.substring(3);
     const pendulums = decodePendulums(decoded);
     const restOfConfig = decoded.split("|").slice(pendulums.length);
     // console.log(restOfConfig);
