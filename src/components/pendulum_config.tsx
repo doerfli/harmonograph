@@ -1,6 +1,6 @@
 import { MovementParameters } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
-import { Accordion, AccordionDetails, AccordionSummary, Divider, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import AxisConfig from "./axis_config";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';

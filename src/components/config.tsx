@@ -1,8 +1,8 @@
 import { addPendulum, removePendulum, setDampening, setMaxTime, setRotationInterval } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
-import { Box, Button, Slider, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { Box, Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import ConfigSlider from "./config_slider";
 import PendulumConfig from "./pendulum_config";
 
 const MAX_PENDULUMS = 4;
@@ -30,39 +30,27 @@ export default function Config() {
             <PendulumConfig id={i} key={i} defaultExpanded={i == 0}/>
         )}
         <Box sx={{ mt: 1}}>
-            <Typography variant="subtitle2">Dampening</Typography>
-            <Slider
-                aria-label="Dampening"
-                defaultValue={dampening}
+            <ConfigSlider
+                label="Dampening"
                 value={dampening}
-                valueLabelDisplay="auto"
                 step={0.01}
-                marks
                 min={0}
                 max={0.1}
                 onChange={(event, value) => dispatch(setDampening(value as number))}
                 />
-            <Typography variant="subtitle2">Rotation interval</Typography>
-            <Slider
-                aria-label="Rotation interval"
-                defaultValue={rotationInterval}
+            <ConfigSlider
+                label="Rotation interval"
                 value={rotationInterval}
-                valueLabelDisplay="auto"
                 step={0.25}
-                marks
                 min={0.25}
                 max={6}
                 onChange={(event, value) => dispatch(setRotationInterval(value as number))}
+                note="Note: Shorter intervals will create less precise paintings"
                 />
-            <Typography variant="body2" fontSize={12} color={grey[700]}>Note: Shorter intervals will create less precise paintings</Typography>
-            <Typography variant="subtitle2">Painting duration</Typography>
-            <Slider
-                aria-label="Painting duration"
-                defaultValue={maxTime}
+            <ConfigSlider
+                label="Painting duration"
                 value={maxTime}
-                valueLabelDisplay="auto"
                 step={1}
-                marks
                 min={10}
                 max={300}
                 onChange={(event, value) => dispatch(setMaxTime(value as number))}
