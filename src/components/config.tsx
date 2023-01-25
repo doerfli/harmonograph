@@ -1,4 +1,4 @@
-import { addPendulum, removePendulum, setDampening, setMaxTime, setRotationInterval } from "@/redux/slices/pendulums";
+import { addPendulum, removePendulum, reset, setDampening, setMaxTime, setRotationInterval } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
 import { Box, Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,8 +16,9 @@ export default function Config() {
     const maxTime = useSelector((state: RootState) => state.pendulums.maxTime);
     const numPendulums = pendulums.length;
 
-    const addAction = (<Button variant="text" onClick={() => dispatch(addPendulum())} disabled={numPendulums >= MAX_PENDULUMS} >Add Pendulum</Button>);
-    const removeAction = (<Button variant="text" onClick={() => dispatch(removePendulum())} disabled={numPendulums <= 1} >Remove Pendulum</Button>);
+    const addAction = (<Button variant="text" onClick={() => dispatch(addPendulum())} disabled={numPendulums >= MAX_PENDULUMS} >Add</Button>);
+    const removeAction = (<Button variant="text" onClick={() => dispatch(removePendulum())} disabled={numPendulums <= 1} >Remove</Button>);
+    const resetAction = (<Button variant="text" onClick={() => dispatch(reset())} >Reset</Button>);
     
     return (
     <Box style={{maxHeight: '100vh', overflow: 'auto' }} sx={{ p: 1 }}>
@@ -25,6 +26,7 @@ export default function Config() {
         <Box>
             {addAction}
             {removeAction}
+            {resetAction}
         </Box>
         {[...Array(numPendulums)].map((e, i) => 
             <PendulumConfig id={i} key={i} defaultExpanded={i == 0}/>
