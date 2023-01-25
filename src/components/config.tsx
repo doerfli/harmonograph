@@ -1,6 +1,7 @@
-import { addPendulum, removePendulum, setDampening } from "@/redux/slices/pendulums";
+import { addPendulum, removePendulum, setDampening, setRotationInterval } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
 import { Box, Button, Slider, Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import PendulumConfig from "./pendulum_config";
 
@@ -11,6 +12,7 @@ export default function Config() {
 
     const pendulums = useSelector((state: RootState) => state.pendulums.pendulums);
     const dampening = useSelector((state: RootState) => state.pendulums.dampening);
+    const rotationInterval = useSelector((state: RootState) => state.pendulums.rotationInterval);
     const numPendulums = pendulums.length;
 
     const addAction = (<Button variant="text" onClick={() => dispatch(addPendulum())} disabled={numPendulums >= MAX_PENDULUMS} >Add Pendulum</Button>);
@@ -39,6 +41,19 @@ export default function Config() {
                 max={0.1}
                 onChange={(event, value) => dispatch(setDampening(value as number))}
                 />
+            <Typography variant="subtitle2">Rotation interval</Typography>
+            <Slider
+                aria-label="Rotation interval"
+                defaultValue={rotationInterval}
+                value={rotationInterval}
+                valueLabelDisplay="auto"
+                step={0.25}
+                marks
+                min={0.25}
+                max={6}
+                onChange={(event, value) => dispatch(setRotationInterval(value as number))}
+                />
+            <Typography variant="body2" fontSize={12} color={grey[700]}>Note: Shorter intervals will create less precise paintings</Typography>
         </Box>
     </Box>);
 }

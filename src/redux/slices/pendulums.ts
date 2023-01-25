@@ -4,6 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 export interface PendulumState {
     pendulums: Pendulum[],
     dampening: number,
+    rotationInterval: number,
 }
 
 export interface Pendulum {
@@ -36,6 +37,7 @@ const initialState: PendulumState = {
         circlePendulum
     ],
     dampening: 0.01,
+    rotationInterval: 3,
 }
 
 export const pendulumsSlice = createSlice({
@@ -81,6 +83,9 @@ export const pendulumsSlice = createSlice({
         setDampening: (state, action: PayloadAction<number>) => {
             state.dampening = action.payload;
         },
+        setRotationInterval: (state, action: PayloadAction<number>) => {
+            state.rotationInterval = action.payload;
+        },
     },
 });
 
@@ -93,6 +98,7 @@ export const {
     addPendulum,
     removePendulum,
     setDampening,
+    setRotationInterval,
 } = pendulumsSlice.actions
 
 export default pendulumsSlice.reducer

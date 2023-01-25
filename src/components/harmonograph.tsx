@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { add } from "@/util/vector";
 import { Box } from "@mui/material";
 
-const ROTATION_INTERVAL = 3000; // millis
 const AMPLITUDE_SCALAR = 2;
 const MAX_TIME = 60 * 1000; // millis
 
@@ -18,6 +17,7 @@ interface HarmonographProps {
 export default function Harmonograph(props: HarmonographProps) {
     const pendulums = useSelector((state: RootState) => state.pendulums.pendulums);
     const dampening = useSelector((state: RootState) => state.pendulums.dampening);
+    const rotationInterval = useSelector((state: RootState) => state.pendulums.rotationInterval);
     
     const [ configChanged, setConfigChanged ] = useState(false);
     const [ timeStarted, setTimeStarted ] = useState(0);
@@ -31,7 +31,7 @@ export default function Harmonograph(props: HarmonographProps) {
                 p5js.loop();
             }, 500);
         }
-    }, [pendulums]);
+    }, [pendulums, dampening, rotationInterval]);
 
     let lastPt = { x: 0, y: 0 } as Point;
 
@@ -59,7 +59,7 @@ export default function Harmonograph(props: HarmonographProps) {
             p5.noLoop();
         }
 
-        const warpedTime = timestamp / ROTATION_INTERVAL * p5.TWO_PI;
+        const warpedTime = timestamp / (rotationInterval * 1000) * p5.TWO_PI;
 
         let pt = { x: 0, y: 0 } as Point;
 
