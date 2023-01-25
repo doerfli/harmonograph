@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { encodeConfig } from '@/util/config';
+import { encodeConfig } from '@/util/encode_decode_config';
 
 export interface PendulumState {
     pendulums: Pendulum[],

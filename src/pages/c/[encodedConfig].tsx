@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { decodeConfig } from '@/util/config';
+import { decodeConfig } from '@/util/encode_decode_config';
 import { loadConfig } from '@/redux/slices/pendulums';
 
 const Harmonograph = dynamic(() => import('../../components/harmonograph').then((mod) => mod.default), {
