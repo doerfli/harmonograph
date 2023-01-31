@@ -78,6 +78,11 @@ export default function Examples() {
             file: "14.png",
             slug: "djEkMSwxMDAsMDsxLDUwLDAuNXwxLDEwMCwwOzEsMzMsMC41fDMsNjYsMDs2LDQ2LDEuNzV8MC4wMSwzLDYwLA=="
         },
+        {
+            name: "Example 15",
+            file: "15.png",
+            slug: "djEkMiwxMDAsMDs0LDYzLDAuMjV8Niw3OSwwLjI1OzQsNzYsMC4yNXwwLjAxLDMsNjAs"
+        },
     ];
 
     return (
