@@ -40,7 +40,7 @@ export default function Config() {
     }
 
     return (
-    <Box style={{maxHeight: '100vh', overflow: 'auto' }} sx={{ p: 1 }}>
+    <Box sx={{ p: 1 }}>
         <Typography variant="h5">Configuration</Typography>
         <Box>
             {addAction}
