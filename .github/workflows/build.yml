@@ -20,6 +20,8 @@ jobs:
           node-version: '18'
 
       - name: NPM install
+        env:
+          FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
         run: npm install
 
       - name: NPM run build
