@@ -4,6 +4,13 @@
     margin-right: 4px;
 }
 
+.fa2x {
+    /* height: 24px; */
+    width: 48px;
+    margin-right: 8px;
+}
+
+
 .cursor-pointer {
     cursor: pointer;
 }

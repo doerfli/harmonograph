@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 // Prevent fontawesome from adding its CSS since we did it manually above:
 import { config } from '@fortawesome/fontawesome-svg-core';
+import Header from '@/components/header';
 config.autoAddCss = false; /* eslint-disable import/first */
 
 
@@ -27,6 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <CssBaseline enableColorScheme />
       <Container maxWidth="xl" sx={{ p: 1 }}>
         <Provider store={store}>
+          <Header />
           <Component {...pageProps} />
         </Provider>
       </Container>
