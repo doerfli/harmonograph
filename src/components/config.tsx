@@ -41,8 +41,8 @@ export default function Config() {
 
     return (
     <Box sx={{ p: 1 }}>
-        <Typography variant="h5">Configuration</Typography>
-        <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
+            <Typography variant="subtitle2" sx={{ mr: 1 }}>Pendulums</Typography>
             {addAction}
             {removeAction}
             {resetAction}

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { add } from "@/util/vector";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 const AMPLITUDE_SCALAR = 2;
 
@@ -108,8 +108,9 @@ export default function Harmonograph(props: HarmonographProps) {
     }
 
 	return (<>
-        <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}> 
-            <Box sx={{ mt: 1 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', p: 1 }}> 
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
+                <Typography variant="subtitle2" sx={{ mr: 2 }}>Painting</Typography>
                 <Button onClick={stop} disabled={! active}>Stop</Button>
                 <Button onClick={restart}>Restart</Button>
             </Box>

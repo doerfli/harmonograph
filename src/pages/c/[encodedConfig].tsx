@@ -31,12 +31,6 @@ export default function Home() {
             <Grid item xs={9}>
                 <Harmonograph />
             </Grid>
-            <Grid item xs={12} sx={{ p: 1 }}>
-                <Button href='https://github.com/doerfli/harmonograph' target="_blank">
-                    <FontAwesomeIcon icon={faGithub} className="fa cursor-pointer" />
-                    Github Repository
-                </Button>
-            </Grid>
         </Grid>
         </>
     )
