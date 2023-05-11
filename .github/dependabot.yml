@@ -11,7 +11,7 @@ updates:
       interval: "monthly"
     ignore:
     - dependency-name: "node"
-      versions: ["19-alpine"]
+      versions: ["19-alpine", "20-alpine"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -23,6 +23,6 @@ updates:
     open-pull-requests-limit: 30
     ignore:
     - dependency-name: "@types/node" 
-      versions: ["19.x"]
+      versions: ["19.x", "20.x"]
     reviewers:
       - "doerfli"
