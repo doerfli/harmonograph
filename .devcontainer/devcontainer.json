@@ -20,7 +20,7 @@
 			"extensions": [
 				"dbaeumer.vscode-eslint",
 				"github.vscode-pull-request-github",
-				"github.copilot",
+				"github.copilot-nightly",
 				"mhutchie.git-graph",
 				"eamodio.gitlens",
 				"gruntfuggly.todo-tree",
