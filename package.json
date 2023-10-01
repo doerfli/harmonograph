@@ -19,7 +19,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.14.8",
     "@mui/material": "^5.14.8",
-    "@next/font": "13.4.19",
+    "@next/font": "13.5.3",
     "@reduxjs/toolkit": "^1.9.5",
     "next": "13.4.19",
     "p5": "^1.7.0",
