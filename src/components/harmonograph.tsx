@@ -53,7 +53,7 @@ export default function Harmonograph(props: HarmonographProps) {
         if (configChanged) {
             // when config changed, restart drawing
             setTimeStarted(p5.millis());
-            p5.clear();
+            p5.clear(0,0,0,0);
             setConfigChanged(false);
         }
 
