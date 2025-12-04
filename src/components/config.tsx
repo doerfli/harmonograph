@@ -1,7 +1,7 @@
 import { addPendulum, removePendulum, reset, setDampening, setMaxTime, setRotationInterval } from "@/redux/slices/pendulums";
 import { RootState } from "@/redux/store";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faCopy } from "@fortawesome/pro-regular-svg-icons";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
