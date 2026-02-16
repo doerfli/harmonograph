@@ -18,7 +18,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.14.19",
-    "@mui/material": "^5.14.19",
+    "@mui/material": "^7.3.8",
     "@reduxjs/toolkit": "^1.9.7",
     "next": "16.1.6",
     "p5": "^2.2.1",
