@@ -24,4 +24,14 @@ updates:
     ignore:
     - dependency-name: "@types/node" 
       versions: ["25.x"]
-
+    groups:
+      npm-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+      npm-minor:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
