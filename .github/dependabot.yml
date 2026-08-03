@@ -35,3 +35,8 @@ updates:
           - "*"
         update-types:
           - "minor"
+      npm-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
