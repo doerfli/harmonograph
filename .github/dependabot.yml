@@ -35,8 +35,13 @@ updates:
           - "*"
         update-types:
           - "minor"
-      npm-major:
+      npm-major-fortawesome:
         patterns:
-          - "*"
+          - "@fortawesome/*"
+        update-types:
+          - "major"
+      npm-major-mui:
+        patterns:
+          - "@mui/*"
         update-types:
           - "major"
