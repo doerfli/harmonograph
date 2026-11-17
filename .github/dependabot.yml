@@ -13,7 +13,7 @@ updates:
       default-days: 3
     ignore:
     - dependency-name: "node"
-      versions: ["25-alpine", "26-alpine"]
+      versions: ["25-alpine", "27-alpine"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -29,7 +29,7 @@ updates:
     open-pull-requests-limit: 30
     ignore:
     - dependency-name: "@types/node" 
-      versions: ["25.x", "26.x"]
+      versions: ["25.x", "27.x"]
     groups:
       npm-patch:
         patterns:
